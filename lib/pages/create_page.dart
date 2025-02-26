@@ -55,6 +55,12 @@ class _CreatePageState extends State<CreatePage> {
                 child: TextField(
                   controller: bodyController,
                   focusNode: bodyFocus,
+                  onTapOutside: (val) => bodyFocus.unfocus(),
+                  maxLines: null,
+                  expands: true,
+                  decoration: InputDecoration(
+                    hintText: "Body...",
+                  ),
                 ),
               ),
             ],
@@ -64,10 +70,3 @@ class _CreatePageState extends State<CreatePage> {
     );
   }
 }
-
-
-
-
-
-
-
