@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:note_app_with_d4/models/note_model.dart';
 import 'package:note_app_with_d4/pages/create_page.dart';
 
@@ -32,13 +33,14 @@ class _HomePageState extends State<HomePage> {
         title: Text("All Notes"),
         actions: [
           CupertinoButton(
-            onPressed: () {
-              Navigator.push(
+            onPressed: () async {
+              await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => CreatePage(),
                 ),
               );
+              load();
             },
             child: Icon(CupertinoIcons.add, size: 30),
           ),
@@ -49,20 +51,52 @@ class _HomePageState extends State<HomePage> {
           itemCount: notes.length,
           itemBuilder: (context, index) {
             NoteModel data = notes[index];
-            return ListTile(
-              title: Text(
-                data.title,
-                style: TextStyle(),
-                maxLines: 1,
-              ),
-              subtitle: Column(
-                children: [
-                  Text(
-                    data.body,
-                    style: TextStyle(),
-                    maxLines: 2,
+            return CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CreatePage(note: data),
                   ),
-                ],
+                );
+                load();
+              },
+              child: ListTile(
+                title: Text(
+                  data.title,
+                  style: TextStyle(),
+                  maxLines: 1,
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      data.body,
+                      style: TextStyle(),
+                      maxLines: 2,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          DateFormat.yMMMMd().format(data.time),
+                        ),
+                        Text(" at "),
+                        Text(
+                          DateFormat.Hm().format(data.time),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                trailing: CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () async {
+                    await deleteNote(data);
+                    load();
+                  },
+                  child: Icon(CupertinoIcons.delete),
+                ),
               ),
             );
           },

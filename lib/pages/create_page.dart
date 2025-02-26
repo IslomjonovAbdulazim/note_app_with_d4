@@ -33,7 +33,15 @@ class _CreatePageState extends State<CreatePage> {
         title: Text("Detail Note"),
         actions: [
           CupertinoButton(
-            onPressed: () {},
+            onPressed: () {
+              NoteModel note = NoteModel(
+                title: titleController.text,
+                body: bodyController.text,
+                time: widget.note?.time ?? DateTime.now(),
+              );
+              createNote(note);
+              Navigator.pop(context);
+            },
             child: Text("Save"),
           ),
         ],
