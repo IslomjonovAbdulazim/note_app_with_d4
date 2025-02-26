@@ -16,6 +16,7 @@ dependencies:
   google_fonts: ^6.2.1
   device_preview: ^1.2.0
   shared_preferences: ^2.5.2
+  intl:
 
 dev_dependencies:
   flutter_test:

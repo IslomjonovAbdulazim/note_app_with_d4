@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:note_app_with_d4/models/note_model.dart';
+import 'package:note_app_with_d4/pages/create_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,6 +27,23 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("All Notes"),
+        actions: [
+          CupertinoButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CreatePage(),
+                ),
+              );
+            },
+            child: Icon(CupertinoIcons.add, size: 30),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: ListView.builder(
           itemCount: notes.length,
@@ -43,7 +62,6 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(),
                     maxLines: 2,
                   ),
-
                 ],
               ),
             );
