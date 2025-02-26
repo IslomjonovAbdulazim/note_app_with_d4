@@ -31,8 +31,21 @@ class _HomePageState extends State<HomePage> {
           itemBuilder: (context, index) {
             NoteModel data = notes[index];
             return ListTile(
-              title: Text(data.title),
-              subtitle: Text(data.body),
+              title: Text(
+                data.title,
+                style: TextStyle(),
+                maxLines: 1,
+              ),
+              subtitle: Column(
+                children: [
+                  Text(
+                    data.body,
+                    style: TextStyle(),
+                    maxLines: 2,
+                  ),
+
+                ],
+              ),
             );
           },
         ),
